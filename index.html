@@ -1,0 +1,276 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sus Hi Eatstation · Franchisee Portal</title>
+<style>
+:root{--ink:#16202a;--mut:#5b6773;--bg:#f6f4ef;--card:#fff;--red:#d7263d;--amb:#f4a100;--grn:#1f9d55;--blu:#2563eb;--line:#e6e1d8;--brand:#c8102e}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+header.top{position:sticky;top:0;z-index:20;background:#111;color:#fff;display:flex;align-items:center;gap:20px;padding:10px 24px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:20px;letter-spacing:.5px}.logo b{color:var(--brand);background:#fff;border-radius:6px;padding:0 6px;margin-right:6px}
+header nav a{color:#ddd;text-decoration:none;margin-right:14px;font-size:14px;padding:4px 0;border-bottom:2px solid transparent}header nav a.on{color:#fff;border-color:var(--brand)}
+.pill{font-size:11px;background:#333;color:#ffd166;border-radius:20px;padding:2px 8px;margin-left:4px;vertical-align:middle}
+.view{display:none}.view.on{display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:28px 20px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;text-decoration:none;color:inherit;transition:.15s;position:relative}
+.tile:hover{transform:translateY(-3px);box-shadow:0 10px 24px #0001}.tile .ic{font-size:30px}.tile h3{margin:8px 0 4px}.tile p{color:var(--mut);margin:0;font-size:14px}
+.tag{position:absolute;top:16px;right:16px;font-size:11px;font-weight:700;border-radius:20px;padding:3px 9px}.live{background:#dcfce7;color:#166534}.soon{background:#fef3c7;color:#92400e}
+.hero{background:linear-gradient(135deg,#1a1a1a,#3b0a12);color:#fff;border-radius:20px;padding:34px;margin-bottom:24px}
+.hero h1{margin:0 0 6px;font-size:clamp(24px,4vw,38px)}.hero .rule{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px}
+.rule div{background:#ffffff14;border:1px solid #ffffff30;border-radius:14px;padding:14px 18px}.rule strong{font-size:28px;display:block}
+.layout{display:grid;grid-template-columns:240px 1fr;gap:28px}
+aside.toc{position:sticky;top:70px;align-self:start;max-height:calc(100vh - 90px);overflow:auto}
+aside.toc a{display:block;padding:6px 10px;border-radius:8px;color:var(--mut);text-decoration:none;font-size:14px}aside.toc a:hover,aside.toc a.on{background:#fff;color:var(--brand);font-weight:600}
+section.sec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;margin-bottom:22px;scroll-margin-top:80px}
+.sec h2{margin-top:0;display:flex;gap:10px;align-items:center}.num{background:var(--brand);color:#fff;border-radius:10px;width:34px;height:34px;display:inline-grid;place-items:center;font-size:16px;flex:none}
+h3{margin:22px 0 8px}ul.chk{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px}
+ul.chk li{background:#faf8f4;border-radius:10px;padding:8px 12px 8px 34px;position:relative;font-size:15px}ul.chk li:before{content:"✓";position:absolute;left:12px;color:var(--grn);font-weight:800}
+ul.x li:before{content:"!";color:var(--red)}
+.callout{border-left:5px solid var(--brand);background:#fff5f6;padding:12px 16px;border-radius:8px;margin:14px 0}.callout.i{border-color:var(--blu);background:#eff6ff}.callout.a{border-color:var(--amb);background:#fffbeb}
+.bands{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.band{border-radius:14px;padding:16px;color:#fff}.band b{font-size:24px;display:block}
+.g{background:var(--grn)}.y{background:#65a30d}.r{background:var(--red)}.o{background:#ea580c}.k{background:#334155}
+.bar{display:flex;height:16px;border-radius:10px;overflow:hidden;margin:12px 0 4px}.bar span{display:block}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.cat{border:1px solid var(--line);border-radius:12px;padding:14px}.cat h4{margin:0 0 6px}.cat ul{margin:0;padding-left:18px;font-size:14px;color:var(--mut)}
+.sev{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.sevc{border-radius:14px;padding:16px;border-top:6px solid}.sevc small{color:var(--mut)}.sevc b{display:block;font-size:18px;margin-top:6px}
+.window{position:relative;height:64px;background:#eef2f7;border-radius:12px;margin:20px 0 34px}.window .ok{position:absolute;left:1.4%;right:0;top:0;bottom:0;background:linear-gradient(90deg,#bfdbfe,#93c5fd);border-radius:0 12px 12px 0}
+.window .lbl{position:absolute;top:70px;font-size:13px;color:var(--mut);transform:translateX(-50%);white-space:nowrap}.window .mid{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;color:#1e3a8a}
+.fee{display:inline-block;background:#111;color:#fff;border-radius:14px;padding:10px 18px;font-size:22px;font-weight:800}
+.ladder{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;counter-reset:s}.step{border-radius:14px;padding:16px;border:1px solid var(--line);position:relative}.step h4{margin:0 0 8px}.step ul{padding-left:18px;margin:0;font-size:14px}
+.step:nth-child(1){border-top:6px solid var(--amb)}.step:nth-child(2){border-top:6px solid #ea580c}.step:nth-child(3){border-top:6px solid var(--red)}.step:nth-child(4){border-top:6px solid #111}
+.tl{border-left:3px solid var(--line);margin-left:16px;padding-left:24px}.tl div{position:relative;margin-bottom:14px}.tl div:before{content:attr(data-n);position:absolute;left:-41px;top:0;width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+.tl small{display:block;color:var(--mut)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px}.cmp>div{border-radius:14px;padding:18px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{background:#faf8f4}
+details{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:#fff}summary{cursor:pointer;padding:12px 16px;font-weight:600}details p{margin:0;padding:0 16px 14px;color:#333}
+input[type=search]{width:100%;padding:12px 16px;border-radius:12px;border:1px solid #ccc;font-size:16px;margin-bottom:14px}
+.ftabs button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 14px;margin:0 6px 8px 0;cursor:pointer;font-weight:600}.ftabs button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+form.f{display:none;border:1px solid var(--line);border-radius:14px;padding:20px}form.f.on{display:block}
+form.f label{display:block;font-size:14px;font-weight:600;margin:10px 0 4px}form.f input,form.f textarea{width:100%;padding:8px 10px;border:1px solid #ccc;border-radius:8px;font:inherit}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.corp{background:#f3f4f6;border-radius:12px;padding:14px;margin-top:16px}.corp label{font-weight:400;display:inline-flex;gap:6px;margin-right:14px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer}.preview{background:#fef3c7;color:#92400e;border-radius:10px;padding:10px 14px;font-weight:600;margin-bottom:12px}
+.soonbox{background:#fff;border:2px dashed #e0c98a;border-radius:18px;padding:40px;text-align:center;color:var(--mut)}
+.final{background:#111;color:#fff;border-radius:18px;padding:24px}
+html{scroll-behavior:smooth}h1,h2{letter-spacing:-.02em}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.reveal.in{opacity:1;transform:none}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-bottom:22px}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 4px 14px #0000000a}
+.tool h3{margin:0 0 10px}.tool input,.tool select{width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;font-size:17px}
+.res{margin-top:12px;border-radius:12px;padding:14px;display:none}.res.on{display:block}.res.pass{background:#dcfce7;color:#14532d}.res.fail{background:#fee2e2;color:#7f1d1d}.res.info{background:#eff6ff;color:#1e3a8a}
+.res big{font-size:26px;font-weight:800;display:block}.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.seg button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px;cursor:pointer;font-weight:600}.seg button.on{background:#111;color:#fff}
+.esc{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.esc button{flex:1 1 120px;border:0;border-radius:10px;padding:10px;font-weight:700;cursor:pointer;background:#eee}.esc button.on{color:#fff}
+.escp ul{margin:6px 0 0;padding-left:18px}
+details.sub{border:1px solid var(--line);border-radius:12px;margin:12px 0;padding:0 16px;background:#fdfcf9}details.sub>summary{font-size:18px;padding:14px 0}details.sub[open]>summary{border-bottom:1px solid var(--line);margin-bottom:8px}
+details summary{list-style:none}details summary::-webkit-details-marker{display:none}details>summary:after{content:"+";float:right;font-weight:800;color:var(--brand);transition:.2s}details[open]>summary:after{transform:rotate(45deg)}
+.btn2{background:#fff;color:var(--ink);border:1px solid #ccc;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;margin-left:8px}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media(max-width:860px){header.top{gap:6px;padding:8px 14px}.logo{font-size:16px}header nav{display:flex;overflow-x:auto;width:100%;white-space:nowrap}.hero{padding:22px}.wrap{padding:16px 12px}section.sec{padding:18px}.layout{grid-template-columns:1fr}aside.toc{position:static;max-height:none;display:flex;overflow-x:auto;gap:4px}aside.toc a{white-space:nowrap}.cmp{grid-template-columns:1fr}}
+@media print{header.top,aside.toc,.ftabs,.btn,.nop{display:none!important}body{background:#fff}.view{display:none!important}.printing{display:block!important}form.f{display:none!important}form.f.on{display:block!important;border:0}}
+</style></head><body>
+<header class="top"><div class="logo"><b>Sus Hi</b>Eatstation · Franchisee Portal</div>
+<nav><a href="#home" data-v="home">Home</a><a href="#compliance" data-v="compliance">Compliance Program</a><a href="#ops" data-v="ops">Operations Manual<span class="pill">soon</span></a><a href="#systems" data-v="systems">Systems &amp; Tools<span class="pill">soon</span></a><a href="#ask" data-v="ask">Ask a Question</a></nav></header>
+
+<div class="view" id="v-home"><div class="wrap">
+<div class="hero"><h1>Welcome to the Sus Hi Franchisee Portal</h1><p>Your home for company standards, programs, and resources. More sections are on the way.</p></div>
+<div class="tiles">
+<a class="tile" href="#compliance"><span class="tag live">LIVE</span><div class="ic">✅</div><h3>Compliance Program</h3><p>Franchise Accountability &amp; Operational Compliance Program: scores, inspections, timelines, escalation, and forms.</p></a>
+<a class="tile" href="#ops"><span class="tag soon">COMING SOON</span><div class="ic">📘</div><h3>Operations Manual</h3><p>Coming soon.</p></a>
+<a class="tile" href="#systems"><span class="tag soon">COMING SOON</span><div class="ic">🛠️</div><h3>Systems &amp; Tools Help</h3><p>Coming soon.</p></a>
+<a class="tile" href="#ask"><span class="tag live">PARTIAL</span><div class="ic">💬</div><h3>Ask a Question / FAQ</h3><p>Compliance FAQ available now. Question submission coming soon.</p></a>
+</div></div></div>
+
+<div class="view" id="v-ops"><div class="wrap"><h1>📘 Operations Manual</h1><div class="soonbox"><h2>Coming soon</h2><p>This section has not been published yet.</p></div></div></div>
+<div class="view" id="v-systems"><div class="wrap"><h1>🛠️ Systems &amp; Tools Help</h1><div class="soonbox"><h2>Coming soon</h2><p>This section has not been published yet.</p></div></div></div>
+<div class="view" id="v-ask"><div class="wrap"><h1>💬 Ask a Question</h1>
+<div class="preview">Preview: question submission is not connected yet. Search below covers the Compliance Program FAQ only.</div>
+<input type="search" id="askq" placeholder="Search FAQs… (e.g. 80%, extension, product)"><div id="faq2"></div></div></div>
+
+<div class="view" id="v-compliance"><div class="wrap">
+<div class="hero"><small>Program authored by Corporate Operations (Master Kobe)</small><h1>Franchise Accountability &amp; Operational Compliance Program</h1>
+<p>Every location, same standard: quality, safety, cleanliness, and customer experience.</p>
+<div class="rule"><div><strong>&gt; 80%</strong>required to pass, on both secret shopper &amp; quarterly inspections</div><div><strong>80% = FAIL</strong>exactly 80% does not meet the standard</div><div><strong>$300</strong>per required reinspection</div><div><strong>14 days</strong>max reinspection window</div></div></div>
+<div class="tools reveal" id="tools">
+<div class="tool"><h3>📊 Where do I stand?</h3><div class="seg" id="stype"><button class="on" data-t="i">Quarterly inspection</button><button data-t="s">Secret shopper</button></div>
+<input id="score" type="number" min="0" max="100" step="0.1" placeholder="Enter score %, e.g. 84" aria-label="Score percent"><div class="res" id="sres" aria-live="polite"></div></div>
+<div class="tool"><h3>⏱️ Correction deadline finder</h3><select id="vtype" aria-label="Violation type"><option value="">Choose a violation type…</option></select><div class="res" id="vres" aria-live="polite"></div></div>
+<div class="tool"><h3>🪜 Escalation stepper</h3><div class="esc" id="esc"></div><div class="escp" id="escp"></div></div></div><div class="layout"><aside class="toc" id="toc">
+<a href="#s1">1. Purpose &amp; Expectations</a><a href="#s2">2. Performance Standards</a><a href="#s3">3. Approved Products &amp; Procedures</a><a href="#s4">4. Findings &amp; Corrective Actions</a><a href="#s5">5. Repeat Violations &amp; Escalation</a><a href="#s6">6. Deviation Form</a><a href="#s7">7. Franchisee &amp; GM Expectations</a><a href="#s8">8. Accountability Timeline</a><a href="#s9">9. FAQ</a><a href="#s10">10. Forms</a><a href="#s11">11. Records &amp; Tracking</a></aside>
+<main>
+<section class="sec" id="s1"><h2><span class="num">1</span>Purpose and General Expectations</h2>
+<p>The purpose of this program is to ensure that every franchise location consistently meets company standards for food quality, cleanliness, customer service, food safety, operational procedures, and brand presentation.</p>
+<p>Franchise ownership comes with the responsibility of maintaining the standards established by the company. While franchisees have the ability to manage their individual locations, that independence does not extend to making unauthorized changes to company products, procedures, or operating standards.</p>
+<h3>All franchisees and general managers are expected to:</h3><ul class="chk">
+<li>Maintain a clean, organized, and professional restaurant environment.</li><li>Follow all company-approved recipes, preparation methods, portion sizes, and food-handling procedures.</li><li>Purchase and use only approved food products, packaging, paper products, and operating supplies.</li><li>Maintain appropriate food safety, sanitation, and employee hygiene standards.</li><li>Ensure employees are properly trained on company procedures.</li><li>Address customer complaints and operational concerns promptly.</li><li>Maintain all equipment and facilities in safe working condition.</li><li>Cooperate with corporate inspections, secret shoppers, and follow-up evaluations.</li><li>Correct deficiencies within the assigned timelines.</li><li>Communicate operational concerns and requests for exceptions through the appropriate corporate channels. (These will be updated or specified with request forms and a proper approval process/timeline.)</li><li>Ensure that all managers and employees understand and follow current company policies.</li></ul>
+<div class="callout">The franchisee is ultimately responsible for ensuring that these expectations are maintained, regardless of whether the franchisee is physically present at the location.</div></section>
+
+<section class="sec" id="s2"><h2><span class="num">2</span>Performance Standards and Minimum Scores</h2>
+<p>All franchise locations are expected to maintain a score <b>above 80%</b> in both secret shopper evaluations and quarterly corporate inspections.</p>
+<details class="sub" open><summary>A. Secret Shopper Program <small style="color:var(--mut);font-weight:400">· 1 visit per location per month</small></summary>
+<p>Secret shoppers will evaluate the customer-facing experience and consistency of the brand across locations. Evaluations may include:</p>
+<ul class="chk"><li>Customer service and employee professionalism.</li><li>Order accuracy.</li><li>Food quality and presentation.</li><li>Product temperature and freshness.</li><li>Cleanliness of dining areas and customer-facing spaces.</li><li>Speed of service.</li><li>Employee knowledge and attentiveness.</li><li>Overall customer experience.</li></ul>
+<div class="bar"><span class="r" style="width:80%"></span><span class="g" style="width:20%"></span></div><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--mut)"><span>0%</span><span style="margin-left:auto;margin-right:18%">80% ↑ fail line</span><span>100%</span></div>
+<div class="bands" style="margin-top:12px"><div class="band g"><b>Above 80%</b>Meets minimum performance expectations.</div><div class="band r"><b>80% or below</b>Fails to meet minimum performance expectations and requires corrective action.</div><div class="band k"><b>Repeated ≤ 80%</b>May trigger additional evaluations, a formal corrective action plan, or further enforcement.</div></div>
+<div class="callout i">A poor secret shopper score should be reviewed with the franchisee or general manager. The purpose is to identify specific deficiencies rather than simply communicate a failing grade.</div>
+</details><details class="sub" open><summary>B. Quarterly Corporate Inspections <small style="color:var(--mut);font-weight:400">· once per quarter</small></summary>
+<p>Corporate will conduct a formal operational inspection at each franchise location once per quarter. Inspections will evaluate the overall condition and operation of the restaurant. Inspection categories will include:</p>
+<div class="cats">
+<div class="cat"><h4>🧼 1. Food Safety &amp; Sanitation</h4><ul><li>Proper food storage and labeling.</li><li>Temperature logs and food temperatures.</li><li>Cross-contamination prevention.</li><li>Handwashing and employee hygiene.</li><li>Cleaning and sanitation procedures.</li><li>Pest prevention.</li></ul></div>
+<div class="cat"><h4>🍣 2. Food Quality &amp; Preparation</h4><ul><li>Approved ingredients and products.</li><li>Proper recipes and preparation methods.</li><li>Portion control.</li><li>Product freshness and rotation.</li><li>Proper presentation.</li></ul></div>
+<div class="cat"><h4>🧹 3. Cleanliness &amp; Maintenance</h4><ul><li>Kitchen and preparation areas.</li><li>Dining room and customer areas.</li><li>Restrooms.</li><li>Floors, walls, ceilings, and drains.</li><li>Equipment cleanliness and functionality.</li><li>Exterior appearance and signage.</li></ul></div>
+<div class="cat"><h4>📋 4. Operational Procedures</h4><ul><li>Opening and closing procedures.</li><li>Inventory management.</li><li>Employee training.</li><li>Approved equipment and supplies.</li><li>Proper use of company systems.</li><li>Compliance with current operating procedures.</li></ul></div>
+<div class="cat"><h4>⭐ 5. Management &amp; Brand Standards</h4><ul><li>Management presence and accountability.</li><li>Employee professionalism.</li><li>Uniform and appearance standards.</li><li>Customer service expectations.</li><li>Overall brand consistency.</li></ul></div></div>
+</details><details class="sub" open><summary>Inspection scoring</summary>
+<div class="bands"><div class="band g"><b>90–100%</b>Meets expectations<br><small>→ Continue standard operations</small></div><div class="band y"><b>81–89%</b>Meets minimum expectations<br><small>→ Address any individual findings</small></div><div class="band r"><b>80% or below</b>Failing<br><small>→ Corrective action and reinspection</small></div></div>
+<div class="callout">An overall passing score does not excuse individual critical violations. Food safety hazards, unauthorized products, and serious procedural violations must be addressed independently of the overall score.</div></details></section>
+
+<section class="sec" id="s3"><h2><span class="num">3</span>Approved Products, Supplies, and Procedures</h2>
+<p>Maintaining consistency across all locations is essential to protecting the brand and customer experience. All food products, ingredients, paper products, packaging, cleaning supplies, equipment, and other designated operating materials must be approved by corporate before being used.</p>
+<div class="callout a">Franchisees may not independently substitute products or modify established procedures simply because another option is cheaper, more convenient, or more readily available.</div>
+<details class="sub" open><summary>A. Approved Products</summary><p>Corporate will maintain an approved product and supplier list. The list should include:</p>
+<ul class="chk"><li>Approved product name and description.</li><li>Approved brand or manufacturer.</li><li>Approved supplier.</li><li>Product specifications, where applicable.</li><li>Approved alternatives, if available.</li></ul>
+<p>Products that are not included on the approved list should be considered unauthorized until written approval is received.</p>
+</details><details class="sub" open><summary>B. Requesting a Product Substitution</summary><p>Submit a <a href="#s10" onclick="showForm('A')">Product Substitution Request Form</a> <b>before</b> purchasing or using the proposed replacement. The request must include:</p>
+<ul class="chk"><li>Current approved product.</li><li>Proposed replacement product.</li><li>Manufacturer and supplier.</li><li>Product specifications.</li><li>Pricing comparison, when applicable.</li><li>Reason for requesting the substitution.</li><li>Samples, photographs, or product documentation when requested.</li></ul>
+<p>Corporate will review the request based on quality, consistency, food safety, pricing, availability, and brand standards.</p>
+<div class="callout">Approval must be received in writing before the replacement product is used. <b>Submitting a request does not constitute approval.</b></div>
+</details><details class="sub" open><summary>C. Procedural Changes</summary><p>The same approval process applies to changes involving:</p>
+<ul class="chk"><li>Food preparation methods.</li><li>Cooking times and temperatures.</li><li>Portion sizes.</li><li>Storage and handling.</li><li>Cleaning procedures.</li><li>Opening and closing procedures.</li><li>Equipment usage.</li><li>Other established operating procedures.</li></ul>
+<p>No franchisee or general manager may independently alter company procedures. A <a href="#s10" onclick="showForm('B')">Procedural Change Request Form</a> must be submitted and approved before implementation, except where an immediate safety or legal requirement necessitates action. In those circumstances, corporate must be notified immediately.</p>
+</details><details class="sub" open><summary>D. Unauthorized Products and Procedures</summary><p>The use of unauthorized products or intentional deviation from established procedures may result in:</p>
+<ul class="chk x"><li>An inspection violation.</li><li>A corrective action requirement.</li><li>An Out-of-Compliance Deviation Form.</li><li>A reinspection with a $300 charge.</li><li>Additional enforcement for repeat violations.</li></ul>
+<p>Once notified of an unauthorized product or procedure, the franchisee must discontinue the practice within the timeframe specified by corporate.</p></details></section>
+
+<section class="sec" id="s4"><h2><span class="num">4</span>Inspection Findings and Corrective Actions</h2>
+<p>When an inspection is completed, corporate will provide the franchisee or general manager with a written inspection report. The report will identify:</p>
+<ul class="chk"><li>Overall inspection score.</li><li>Individual deficiencies.</li><li>Applicable company standards.</li><li>Required corrective actions.</li><li>Deadline for correction.</li><li>Whether a reinspection is required.</li></ul>
+<p>Each finding should be documented clearly enough that the franchisee understands what needs to be corrected.</p>
+<details class="sub" open><summary>A. Corrective Action Requirements</summary><p>All identified deficiencies must be corrected within the assigned timeframe. Correction deadlines will depend on the severity of the violation.</p>
+<div class="sev">
+<div class="sevc" style="border-color:#991b1b;background:#fef2f2"><small>Critical food safety or immediate safety issue</small><b>Immediately</b></div>
+<div class="sevc" style="border-color:var(--red);background:#fff1f2"><small>Unauthorized product or procedure</small><b>Immediately discontinue; corrective action as directed</b></div>
+<div class="sevc" style="border-color:#ea580c;background:#fff7ed"><small>Cleanliness or sanitation deficiency</small><b>Within 24 hours</b></div>
+<div class="sevc" style="border-color:var(--amb);background:#fffbeb"><small>Minor operational deficiency</small><b>Within 7 days</b></div>
+<div class="sevc" style="border-color:var(--blu);background:#eff6ff"><small>Equipment or maintenance issue</small><b>Within 14 days, unless an approved extension is granted</b></div>
+<div class="sevc" style="border-color:#475569;background:#f8fafc"><small>Significant repair or facility improvement</small><b>As specified in an approved corrective action timeline</b></div></div>
+<p><i>These are standard target timelines. Corporate may assign a shorter deadline when circumstances warrant it.</i></p>
+</details><details class="sub" open><summary>B. Reinspection Requirements</summary><p>A location that fails its quarterly inspection will be subject to a follow-up reinspection. Corporate will determine the actual reinspection date within this window:</p>
+<div class="window"><div class="ok"></div><div class="mid">Reinspection window</div><span class="lbl" style="left:0;transform:none">Day 0: failed inspection</span><span class="lbl" style="left:14%">≥ 48 hours</span><span class="lbl" style="left:100%;transform:translateX(-100%)">Day 14 (calendar)</span></div>
+<p><span class="fee">$300</span> &nbsp;Reinspection Fee, charged to the franchisee for each required reinspection resulting from a failed inspection. The fee is intended to account for the additional corporate time and resources required to revisit a location that did not meet established standards.</p>
+</details><details class="sub" open><summary>C. Requirements Before Reinspection</summary><p>Before a reinspection occurs, the franchisee must ensure that:</p>
+<ol><li>All previously identified violations have been corrected.</li><li>Any outstanding items are actively being addressed.</li><li>All employees and managers have been informed of the deficiencies relevant to their responsibilities.</li><li>Any approved extensions are documented.</li><li>The location is prepared to demonstrate compliance with all previously identified standards.</li></ol>
+<div class="callout a">A reinspection is not limited to checking only the items that previously failed. Corporate may review the entire location to verify that the original deficiencies have been corrected and that no new compliance issues have developed. All previously marked items must be corrected or actively in the process of being corrected.</div>
+<div class="callout">Simply stating that an issue will be addressed is not sufficient. The franchisee must be able to demonstrate actual corrective action.</div>
+</details><details class="sub" open><summary>D. Repair and Extension Requests</summary><p>Some repairs or operational improvements may reasonably require more than the standard correction period. Examples include:</p>
+<ul class="chk"><li>Replacement of major equipment.</li><li>Contractor scheduling.</li><li>Plumbing or electrical repairs.</li><li>Facility improvements.</li><li>Special-order parts.</li><li>Significant structural repairs.</li></ul>
+<p>In these situations, the franchisee must submit a <a href="#s10" onclick="showForm('C')">Corrective Action Extension Request Form</a> directly to the Program Owner. The request must include:</p>
+<ul class="chk"><li>Original inspection finding.</li><li>Reason the correction cannot be completed by the deadline.</li><li>Actions already taken.</li><li>Supporting documentation, when applicable.</li><li>Expected completion date.</li><li>Temporary measures being used to maintain compliance.</li></ul>
+<div class="callout">The request must be submitted and approved <b>before the scheduled reinspection date</b>. Corporate will determine whether an extension is reasonable and whether temporary corrective measures are sufficient. An extension is not automatically granted because a request has been submitted.</div>
+<div class="callout a">Extensions do not excuse immediate food safety or other critical violations. A location must remain safe and compliant while permanent repairs are pending.</div></details></section>
+
+<section class="sec" id="s5"><h2><span class="num">5</span>Repeat Violations and Escalation</h2>
+<p>Repeated violations demonstrate a failure to maintain company standards and require additional accountability. The purpose of escalation is to ensure that deficiencies are permanently corrected rather than repeatedly addressed only when corporate is scheduled to visit.</p>
+<div class="callout i">Tip: use the Escalation stepper at the top of this page to step through each level.</div><div class="ladder">
+<div class="step"><h4>A. First Failed Inspection</h4><ul><li>Written inspection report issued.</li><li>Corrective action requirements provided.</li><li>Reinspection scheduled within the required 14-day window.</li><li>$300 reinspection fee applied.</li></ul></div>
+<div class="step"><h4>B. Second Failed Inspection / Repeat Violations</h4><p style="font-size:13px;margin:0 0 6px">If a location fails its reinspection or the same violations are identified again:</p><ul><li>A second $300 reinspection fee will apply if another reinspection is required.</li><li>A formal Corrective Action Plan must be submitted by the franchisee.</li><li>Corporate may require additional management training.</li><li>A second follow-up inspection may be scheduled within 7 days, or another reasonable timeframe established by corporate.</li><li>Repeated violations may result in an Out-of-Compliance Deviation Form.</li></ul></div>
+<div class="step"><h4>C. Third Failed Inspection / Continued Noncompliance</h4><ul><li>Corporate may require a formal meeting with the franchisee.</li><li>A written improvement plan with specific milestones may be required.</li><li>Additional inspections may be conducted.</li><li>The franchisee may be required to demonstrate management competency and retrain employees.</li><li>Further fees may apply for additional reinspections.</li><li>Corporate may initiate formal enforcement procedures under the franchise agreement.</li></ul></div>
+<div class="step"><h4>D. Persistent or Serious Noncompliance</h4><p style="font-size:13px;margin:0 0 6px">Subject to the franchise agreement and applicable law. Potential consequences include:</p><ul><li>Formal notices of default.</li><li>Required operational supervision or additional oversight.</li><li>Restrictions on unauthorized business practices.</li><li>Required corrective training.</li><li>Additional contractual remedies.</li><li>Suspension or termination of franchise rights when legally and contractually justified.</li></ul></div></div>
+<div class="callout i">The Corrective Action Plan must identify the underlying reason for the repeated issue, the responsible party, the corrective action, and the expected completion date.</div>
+<div class="callout">Serious food safety issues, intentional violations, or conduct that creates an immediate risk to customers or employees may warrant immediate intervention rather than waiting for the normal escalation process.</div></section>
+
+<section class="sec" id="s6"><h2><span class="num">6</span>Out-of-Compliance Deviation Form</h2>
+<p>The Out-of-Compliance Deviation Form is intended to document situations where a franchisee or general manager knowingly continues to violate an established company standard after being informed that the practice is not permitted. This is different from an ordinary inspection finding.</p>
+<div class="cmp"><div style="background:#eff6ff"><h4 style="margin-top:0">🔎 Inspection Finding</h4>Documents a <b>deficiency</b>.</div><div style="background:#fff1f2"><h4 style="margin-top:0">⚠️ Deviation Form</h4>Documents an <b>intentional departure</b> from an established requirement, particularly when the individual has already received notice and an opportunity to correct the issue.</div></div>
+<details class="sub" open><summary>When to Issue a Deviation Form</summary><ul class="chk x"><li>Continuing to purchase or use an unauthorized food product after being instructed to stop.</li><li>Repeatedly using an unapproved ingredient substitution.</li><li>Intentionally disregarding a required food preparation procedure.</li><li>Refusing to correct an identified sanitation issue.</li><li>Knowingly operating equipment or processes contrary to company requirements.</li><li>Repeatedly failing to follow an approved corrective action plan.</li></ul>
+</details><details class="sub" open><summary>Required Documentation</summary><ul class="chk"><li>Location and franchisee.</li><li>Date of violation.</li><li>Individual responsible, if known.</li><li>Company standard or procedure violated.</li><li>Date the original issue was communicated.</li><li>Previous corrective actions or warnings.</li><li>Description of the continued deviation.</li><li>Supporting evidence, such as photographs or inspection reports.</li><li>Required corrective action.</li><li>Deadline for compliance.</li><li>Franchisee acknowledgment.</li><li>Corporate representative signature.</li></ul>
+<div class="callout i">The franchisee's signature acknowledges receipt of the notice, not necessarily agreement with its contents. A franchisee may provide a written explanation or dispute the finding. Corporate should retain that response with the documentation.</div>
+<div class="callout">Intentional deviations may trigger accelerated escalation, even if the location's overall inspection score remains above 80%.</div></details></section>
+
+<section class="sec" id="s7"><h2><span class="num">7</span>General Franchisee and General Manager Expectations</h2>
+<p>Every franchisee is responsible for ensuring that their location operates consistently with company standards. The franchisee may delegate daily responsibilities to a general manager, but <b>delegation does not remove the franchisee's responsibility for compliance.</b></p>
+<div class="cmp"><div><h4 style="margin-top:0">👔 Franchisee Responsibilities</h4><ul><li>Maintain all company operating standards.</li><li>Ensure adequate management coverage.</li><li>Provide employees with appropriate training.</li><li>Purchase approved products and supplies.</li><li>Maintain facilities and equipment.</li><li>Respond to corporate communications.</li><li>Address inspection findings within established deadlines.</li><li>Submit requests for exceptions before making changes.</li><li>Ensure that reinspection requirements are met.</li><li>Maintain accurate operational records.</li><li>Ensure that the general manager understands corporate expectations.</li></ul></div>
+<div><h4 style="margin-top:0">🧑‍🍳 General Manager Responsibilities</h4><ul><li>Maintain daily operational standards.</li><li>Ensure employees follow established procedures.</li><li>Monitor food quality and food safety.</li><li>Maintain cleanliness throughout the location.</li><li>Conduct regular internal checks.</li><li>Identify and communicate maintenance concerns.</li><li>Ensure employees are trained.</li><li>Correct issues as they arise.</li><li>Communicate corporate inspection findings to the appropriate employees.</li><li>Follow through on assigned corrective actions.</li></ul></div></div>
+<details class="sub" open><summary>Communication Expectations</summary><p>Corporate should be notified promptly of issues that may affect:</p>
+<ul class="chk"><li>Food safety.</li><li>Customer safety.</li><li>Product availability.</li><li>Equipment functionality.</li><li>Significant facility repairs.</li><li>Operational continuity.</li><li>Brand reputation.</li></ul>
+<div class="callout a">Franchisees should not wait until an inspection to report significant operational concerns.</div></details></section>
+
+<section class="sec" id="s8"><h2><span class="num">8</span>Franchise Accountability Timeline</h2>
+<p>The following timeline establishes how the accountability process will work from the initial inspection through potential escalation.</p>
+<div class="tl">
+<div data-n="1"><b>Initial quarterly inspection</b><small>Once per quarter</small></div><div data-n="2"><b>Inspection report issued</b><small>Upon completion or within 1 business day</small></div><div data-n="3"><b>Corrective action period</b><small>Based on severity and assigned deadlines</small></div><div data-n="4"><b>Extension request, if necessary</b><small>Submitted and approved before reinspection</small></div><div data-n="5"><b>Reinspection</b><small>48 hours to 14 calendar days after original inspection</small></div><div data-n="6"><b>Reinspection fee</b><small>$300 per required reinspection</small></div><div data-n="7"><b>Second failure</b><small>Corrective Action Plan and additional reinspection</small></div><div data-n="8"><b>Third failure</b><small>Formal improvement plan and increased oversight</small></div><div data-n="9"><b>Continued noncompliance</b><small>Formal enforcement under franchise agreement</small></div></div>
+<details class="sub" open><summary>Ongoing Monitoring</summary><p>In addition to quarterly inspections:</p><ul class="chk"><li>Monthly secret shopper evaluations will be conducted.</li><li>Corporate will monitor recurring inspection findings.</li><li>Franchisees will receive performance feedback.</li><li>Repeated issues may trigger additional inspections outside the normal quarterly schedule.</li></ul>
+<div class="callout i">Corporate reserves the right to conduct additional inspections when reasonably necessary to verify compliance or address significant concerns.</div></details></section>
+
+<section class="sec" id="s9"><h2><span class="num">9</span>Frequently Asked Questions</h2><input type="search" id="faqq" placeholder="Search questions…"><div id="faq1"></div></section>
+
+<section class="sec" id="s10"><h2><span class="num">10</span>Required Forms and Documentation</h2>
+<p>The following forms should be maintained by corporate and made available to all franchisees.</p>
+<div class="preview">⚠️ Preview only: these forms do not submit anywhere yet. Fill in and use "Print / Save as PDF" to keep a copy.</div>
+<div class="ftabs" id="ftabs"></div><div id="forms"></div></section>
+
+<section class="sec" id="s11"><h2><span class="num">11</span>Program Administration and Recordkeeping</h2>
+<p>Corporate Operations will maintain a compliance record for each franchise location.</p>
+<div class="cmp"><div><h4 style="margin-top:0">🗂️ Each location's file should contain</h4><ul><li>Quarterly inspection reports.</li><li>Monthly secret shopper scorecards.</li><li>Reinspection reports.</li><li>Reinspection fee records.</li><li>Product substitution requests and decisions.</li><li>Procedural change requests and decisions.</li><li>Corrective action extension requests.</li><li>Out-of-Compliance Deviation Forms.</li><li>Corrective Action Plans.</li><li>Relevant communications and supporting documentation.</li></ul></div>
+<div><h4 style="margin-top:0">📊 Recommended tracking metrics</h4><ul><li>Current quarterly inspection score.</li><li>Previous quarterly inspection scores.</li><li>Monthly secret shopper scores.</li><li>Rolling three-month secret shopper average.</li><li>Number of reinspections.</li><li>Total reinspection fees.</li><li>Outstanding corrective actions.</li><li>Repeat violations.</li><li>Unauthorized product or procedure incidents.</li><li>Open extension requests.</li></ul></div></div>
+<p>Corporate should also maintain a centralized performance tracker that allows management to compare locations and identify recurring issues across the franchise system. The program should be reviewed annually to ensure that expectations remain consistent, enforceable, and aligned with the company's operating standards.</p>
+<div class="final"><b>Final Standard:</b> Every franchise location is expected to maintain the same level of quality, safety, cleanliness, and customer experience that the company expects from its corporate-operated locations. Franchise ownership does not remove the responsibility to protect the brand and maintain established operating standards.</div></section>
+</main></div></div></div>
+
+<script>
+const FAQ=[["What happens if my location scores exactly 80% on an inspection?","An 80% score does not meet the required standard. Your location must score above 80% to pass."],
+["What if I disagree with an inspection finding?","You may submit a written explanation to corporate with supporting documentation. Disputing a finding does not automatically suspend the corrective action deadline. Corporate will review the dispute and communicate its determination."],
+["Can I use a different brand of food or packaging if it is cheaper?","No. All food and paper products must be approved before use. You may submit a Product Substitution Request Form for consideration."],
+["What if my approved product is temporarily unavailable?","Contact corporate and submit a substitution request. Do not independently select a replacement product without written approval. Corporate may provide an approved temporary alternative."],
+["What if a repair cannot be completed within the required timeframe?","Submit a Corrective Action Extension Request Form before the scheduled reinspection. Include the reason for the delay, work already completed, supporting documentation, and an expected completion date."],
+["Does submitting an extension request automatically extend my deadline?","No. The request must be reviewed and approved by corporate before the reinspection date."],
+["What happens if I have not corrected every item before the reinspection?","Corporate will document the outstanding deficiencies. Failure to demonstrate meaningful corrective action may result in another failed inspection, another $300 reinspection fee, and additional corrective measures."],
+["What if a repair is scheduled but the contractor cannot arrive until after the reinspection?","Provide documentation of the scheduled repair, explain the delay, and submit an extension request before the reinspection. Corporate will determine whether the temporary measures and proposed timeline are acceptable."],
+["Can I make small changes to recipes or procedures without approval?","No. Changes to established products, recipes, preparation methods, and procedures require prior written approval."],
+["What happens if the same violation appears on multiple inspections?","Repeat violations may result in a formal Corrective Action Plan, additional training, more frequent inspections, and potentially an Out-of-Compliance Deviation Form."],
+["What is an Out-of-Compliance Deviation Form?","It documents a situation where a franchisee or manager knowingly continues to deviate from an established company requirement after receiving notice and an opportunity to correct the issue."],
+["Can a location receive a failing inspection for one serious violation even if the overall score is above 80%?","Yes. Critical food safety, customer safety, or intentional compliance violations may require immediate corrective action regardless of the overall score."],
+["Who is responsible if the general manager fails to follow company procedures?","The franchisee is ultimately responsible for ensuring that the location operates within company standards, even when daily operations are delegated to a general manager."],
+["Who do I contact with questions or requests?","All product substitutions, procedural changes, corrective action extensions, and compliance-related requests should be submitted to the designated Corporate Operations Program Owner."]];
+function faq(el,q){q=(q||'').toLowerCase();el.innerHTML=FAQ.filter(f=>(f[0]+f[1]).toLowerCase().includes(q)).map((f,i)=>`<details${q&&i<3?' open':''}><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')||'<p>No matching questions.</p>'}
+[['faq1','faqq'],['faq2','askq']].forEach(([a,b])=>{const e=document.getElementById(a);faq(e);document.getElementById(b).oninput=ev=>faq(e,ev.target.value)});
+const DEC=['Approved','Approved with conditions','Denied','Additional information required'];
+const FORMS={A:["Product Substitution Request",["Location","Franchisee","Date Submitted"],["Current approved product","Proposed replacement product","Manufacturer/brand","Supplier","Product specifications","Reason for requested substitution","Current product cost","Proposed product cost","Supporting documentation or samples"],["Conditions/Comments","Approved By","Date of Decision"],"The proposed product may not be used until written approval is received."],
+B:["Procedural Change Request",["Location","Franchisee","Date Submitted"],["Current company procedure","Proposed change","Reason for the requested change","Expected operational benefit","Potential effect on food quality, safety, staffing, or customer experience","Supporting documentation"],["Conditions/Comments","Approved By","Date of Decision"],"The proposed procedure may not be implemented until written approval is received."],
+C:["Corrective Action Extension Request",["Location","Franchisee","Original Inspection Date","Scheduled Reinspection Date"],["Inspection finding requiring additional time","Reason the correction cannot be completed","Corrective actions already taken","Temporary measures currently in place","Contractor or supplier information, if applicable","Supporting photographs or documentation","Requested completion date"],["Approved Extension Date","Conditions/Comments","Approved By","Date of Decision"],"This form must be submitted and approved before the scheduled reinspection."],
+D:["Out-of-Compliance Deviation Notice",["Location","Franchisee","Date Issued"],["Company standard or procedure violated","Description of the violation","Date the issue was initially identified","Previous warnings or corrective actions","Evidence of continued noncompliance","Required corrective action","Deadline for compliance"],null,"Acknowledgment confirms receipt of the notice and does not necessarily indicate agreement."],
+E:["Corrective Action Plan",["Location","Franchisee","Date Issued"],null,null,""]};
+let fh='',th='';const inp=l=>`<label>${l}</label><input aria-label="${l}">`;
+for(const k in FORMS){const[t,head,items,corp,note]=FORMS[k];th+=`<button type="button" data-f="${k}">Form ${k}</button>`;
+let h=`<h3>Form ${k}: ${t}</h3><div class="row3">${head.map(l=>`<div>${inp(l)}</div>`).join('')}</div>`;
+if(items)h+=items.map((l,i)=>`<label>${i+1}. ${l}</label><textarea rows="2" aria-label="${l}"></textarea>`).join('');
+if(k==='D')h+=`<label>Franchisee Response</label><textarea rows="3"></textarea><div class="row3">${["Franchisee Acknowledgment","Corporate Representative","Date"].map(l=>`<div>${inp(l)}</div>`).join('')}</div>`;
+if(k==='E')h+=`<div style="overflow-x:auto;margin-top:12px"><table><tr>${["Finding","Root Cause","Corrective Action","Responsible Person","Deadline"].map(c=>`<th>${c}</th>`).join('')}</tr>${'<tr>'+'<td><input></td>'.repeat(5)+'</tr>'.repeat(1)}${('<tr>'+'<td><input></td>'.repeat(5)+'</tr>').repeat(5)}</table></div>${["Training Required","Additional Oversight Required","Next Evaluation Date","Corporate Approval"].map(inp).join('')}`;
+if(corp)h+=`<div class="corp"><b>Corporate Decision (corporate use)</b><div>${DEC.map(d=>`<label><input type="radio" name="d${k}" style="width:auto"> ${d}</label>`).join('')}</div>${corp.map(inp).join('')}</div>`;
+if(note)h+=`<div class="callout">${note}</div>`;
+h+=`<p class="nop"><button type="button" class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button><button type="button" class="btn2" onclick="mailForm(this)">✉️ Copy to email</button></p>`;
+fh+=`<form class="f" id="f${k}" onsubmit="return false">${h}</form>`}
+document.getElementById('ftabs').innerHTML=th;document.getElementById('forms').innerHTML=fh;
+function showForm(k){document.querySelectorAll('.ftabs button').forEach(b=>b.classList.toggle('on',b.dataset.f==k));document.querySelectorAll('form.f').forEach(f=>f.classList.toggle('on',f.id=='f'+k))}
+document.getElementById('ftabs').onclick=e=>{if(e.target.dataset.f)showForm(e.target.dataset.f)};showForm('A');
+window.onbeforeprint=()=>document.getElementById('v-compliance').classList.add('printing');window.onafterprint=()=>document.getElementById('v-compliance').classList.remove('printing');
+function route(){let h=location.hash.slice(1)||'home';let v=h.startsWith('s')&&document.getElementById(h)?'compliance':h;if(!document.getElementById('v-'+v))v='home';
+document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id=='v-'+v));document.querySelectorAll('header nav a').forEach(a=>a.classList.toggle('on',a.dataset.v==v));
+if(v!==h){const t=document.getElementById(h);t.classList.add('in');requestAnimationFrame(()=>t.scrollIntoView({behavior:'instant',block:'start'}))}else scrollTo({top:0,behavior:'instant'})}
+addEventListener('hashchange',route);route();
+const links=[...document.querySelectorAll('#toc a')];new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+e.target.id))}),{rootMargin:'-30% 0px -60% 0px'}).observe&&document.querySelectorAll('section.sec').forEach(s=>window._io=(window._io||new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+e.target.id))}),{rootMargin:'-30% 0px -60% 0px'})).observe(s));
+
+const TL=[["Critical food safety or immediate safety issue","Immediately","fail"],["Unauthorized product or procedure","Immediately discontinue; corrective action as directed","fail"],["Cleanliness or sanitation deficiency","Within 24 hours","fail"],["Minor operational deficiency","Within 7 days","info"],["Equipment or maintenance issue","Within 14 days, unless an approved extension is granted","info"],["Significant repair or facility improvement","As specified in an approved corrective action timeline","info"]];
+const vs=document.getElementById('vtype');TL.forEach((t,i)=>vs.add(new Option(t[0],i)));
+vs.onchange=()=>{const r=document.getElementById('vres');if(vs.value===''){r.className='res';return}const t=TL[vs.value];r.className='res on '+t[2];r.innerHTML=`<big>${t[1]}</big>These are standard target timelines. Corporate may assign a shorter deadline when circumstances warrant it.${vs.value==4?' Need more time? Submit <a href="#s10" onclick="showForm(\'C\')">Form C</a> before the scheduled reinspection.':''}`};
+let st='i';document.getElementById('stype').onclick=e=>{if(!e.target.dataset.t)return;st=e.target.dataset.t;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b==e.target));chk()};
+const sc=document.getElementById('score');sc.oninput=chk;
+function chk(){const r=document.getElementById('sres'),v=parseFloat(sc.value);if(isNaN(v)){r.className='res';return}let c,h;
+if(st=='s'){if(v>80){c='pass';h='<big>✅ Meets minimum performance expectations</big>Above 80%.'}else{c='fail';h='<big>❌ Fails to meet minimum performance expectations</big>80% or below requires corrective action. Repeated scores at or below 80% may trigger additional evaluations, a formal corrective action plan, or further enforcement.'}}
+else{if(v>=90){c='pass';h='<big>✅ Meets expectations</big>Next step: continue standard operations.'}else if(v>80){c='pass';h='<big>🟢 Meets minimum expectations</big>Next step: address any individual findings.'}else{c='fail';h='<big>❌ Failing</big>Next steps: corrective action and reinspection (48 hours to 14 calendar days after the original inspection, $300 reinspection fee). See <a href="#s4">Section 4</a>.'}
+h+='<br><small>An overall passing score does not excuse individual critical violations.</small>'}
+if(v==80)h+='<br><b>Note: exactly 80% does not meet the standard.</b>';r.className='res on '+c;r.innerHTML=h}
+const ESC=[...document.querySelectorAll('.ladder .step')],EC=['#f4a100','#ea580c','#d7263d','#111'],EN=['1st failure','2nd failure','3rd failure','Persistent'];
+const eb=document.getElementById('esc');EN.forEach((n,i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>esc(i);eb.appendChild(b)});
+function esc(i){[...eb.children].forEach((b,j)=>{b.classList.toggle('on',j==i);b.style.background=j==i?EC[i]:''});document.getElementById('escp').innerHTML=ESC[i].innerHTML}esc(0);
+function mailForm(btn){const f=btn.closest('form');const t=f.querySelector('h3').textContent;let body=t+'\n\n';f.querySelectorAll('input:not([type=radio]),textarea').forEach(el=>{const l=el.getAttribute('aria-label')||el.previousElementSibling?.textContent||'';if(l)body+=l+': '+el.value+'\n'});
+const d=f.querySelector('input[type=radio]:checked');if(d)body+='Corporate Decision: '+d.parentElement.textContent.trim()+'\n';
+navigator.clipboard?.writeText(body).catch(()=>{});location.href='mailto:?subject='+encodeURIComponent('Sus Hi '+t)+'&body='+encodeURIComponent(body);btn.textContent='✓ Copied, opening email…'}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll('section.sec,.tile,.hero').forEach(el=>{el.classList.add('reveal');io.observe(el)});
+</script></body></html>
