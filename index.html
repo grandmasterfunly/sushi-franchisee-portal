@@ -272,5 +272,5 @@ function mailForm(btn){const f=btn.closest('form');const t=f.querySelector('h3')
 const d=f.querySelector('input[type=radio]:checked');if(d)body+='Corporate Decision: '+d.parentElement.textContent.trim()+'\n';
 navigator.clipboard?.writeText(body).catch(()=>{});location.href='mailto:?subject='+encodeURIComponent('Sus Hi '+t)+'&body='+encodeURIComponent(body);btn.textContent='✓ Copied, opening email…'}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
-document.querySelectorAll('section.sec,.tile,.hero').forEach(el=>{el.classList.add('reveal');io.observe(el)});
+document.querySelectorAll('section.sec,.tile,.hero,.reveal').forEach(el=>{el.classList.add('reveal');io.observe(el)});
 </script></body></html>
